@@ -51,6 +51,10 @@
 - (void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error
 {
   [_fileHandle closeFile];
+    
+    if([[NSFileManager defaultManager] fileExistsAtPath:_params.toFile] == YES) {
+        [[NSFileManager defaultManager] removeItemAtPath:_params.toFile error:nil];
+    }
 
   return _params.errorCallback(error);
 }
